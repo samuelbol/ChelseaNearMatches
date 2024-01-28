@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 
 import requests
@@ -8,12 +9,12 @@ from keep_alive import keep_alive
 keep_alive()
 
 API_URL = "https://footapi7.p.rapidapi.com/api/team/38/matches/near"
-BOT_TOKEN = "6442048834:AAHKikvUOV73P4-_6lk10LlyKQTGWuQqjyA"
-CHAT_ID = "-4057334853"
+BOT_TOKEN = os.environ.get("bot_token")
+CHAT_ID = os.environ.get("chat_id")
 BASE_URL = f"https://api.telegram.org/bot{BOT_TOKEN}/"
 
 API_HEADERS = {
-    "X-RapidAPI-Key": "7b5d884326mshee4e9441f97979ap194f6ejsn29d87abe0656",
+    "X-RapidAPI-Key": os.environ.get("x-rapidapi-key"),
     "X-RapidAPI-Host": "footapi7.p.rapidapi.com"
 }
 
