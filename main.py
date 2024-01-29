@@ -1,9 +1,9 @@
 import os
 from datetime import datetime
 
+import pytz
 import requests
 from apscheduler.schedulers.blocking import BlockingScheduler
-from pytz import utc
 from keep_alive import keep_alive
 
 keep_alive()
@@ -91,7 +91,8 @@ def main():
         previous_match = format_match_message(previous_match_data, 'Previous')
         next_match = format_match_message(next_match_data, 'Next')
 
-        combined_message = f"🔍 *Chelsea's Last Game*\n{previous_match}\n\n---\n\n📅 *Upcoming Fixture*\n{next_match}"
+        combined_message = f"🔍 *Chelsea's Last Game*\n{previous_match}\n\n---\n\n📅 *Upcoming Fixture*\n{next_match}\n\n" \
+                           f"📲 @JustCFC"
 
         print(combined_message)
 
@@ -99,7 +100,10 @@ def main():
 
 
 if __name__ == "__main__":
-    scheduler = BlockingScheduler(timezone=utc)
-    scheduler.add_job(main, "interval", hours=1)
+    nigerian_timezone = pytz.timezone('Africa/Lagos')
+    scheduler = BlockingScheduler(timezone=nigerian_timezone)
+
+    # Schedule the job to run daily at 10 am Nigerian time
+    scheduler.add_job(main, 'cron', hour=10, minute=0)
     scheduler.start()
     # main()
