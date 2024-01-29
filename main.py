@@ -56,7 +56,7 @@ def format_match_message(match, match_type):
             start_timestamp = match["startTimestamp"]
             start_date = date_time(start_timestamp).strftime("%a, %d %b")
             start_time = date_time(start_timestamp).strftime("%H:%M")
-            message += f"🏠 *{home_team} 🆚 {away_team}* 🚌"
+            message += f"🏠 *{home_team}  🆚  {away_team}* 🚌"
 
             message += f"\n\n📅 _{start_date}\n⏰ {start_time} (GMT)_"
 
@@ -105,5 +105,6 @@ if __name__ == "__main__":
 
     # Schedule the job to run daily at 10 am Nigerian time
     scheduler.add_job(main, 'cron', hour=10, minute=0)
-    # scheduler.start()
-    main()
+    scheduler.start()
+    # main()
+    
