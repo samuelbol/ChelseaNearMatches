@@ -24,7 +24,7 @@ HEADER = {
 
 
 def date_time(time_stamp):
-    return datetime.fromtimestamp(time_stamp, tz=None)
+    return datetime.fromtimestamp(time_stamp, tz=nigerian_timezone)
 
 
 def get_match_data():
@@ -45,20 +45,22 @@ def format_match_message(match, match_type):
         home_team = match["homeTeam"]["shortName"]
         away_team = match["awayTeam"]["shortName"]
 
-        message = f"🏆 {tournament} - {round_info}\n\n"
-
         if match_type.lower() == "previous":
             home_score = match["homeScore"]["current"]
             away_score = match["awayScore"]["current"]
+
+            message = f"🏆 {tournament}\n\n"
             message += f"🏠 *{home_team} {home_score} - {away_score} {away_team}* 🚌"
 
-        if match_type.lower() == "next":
+        elif match_type.lower() == "next":
             start_timestamp = match["startTimestamp"]
             start_date = date_time(start_timestamp).strftime("%a, %d %b")
-            start_time = date_time(start_timestamp).strftime("%H:%M")
-            message += f"🏠 *{home_team}  🆚  {away_team}* 🚌"
+            start_time = date_time(start_timestamp).strftime("%I:%M %p")
 
-            message += f"\n\n📅 _{start_date}\n⏰ {start_time} (GMT)_"
+            message = f"🏆 {tournament} - {round_info}\n\n"
+            message += f"🏠 *{home_team} 🆚 {away_team}* 🚌"
+
+            message += f"\n\n📅 {start_date}\n⏰ {start_time} (GMT + 1)"
 
         return message
 
@@ -96,7 +98,7 @@ def main():
 
         print(combined_message)
 
-        send_fixture_to_telegram(combined_message)
+        # send_fixture_to_telegram(combined_message)
 
 
 if __name__ == "__main__":
@@ -107,4 +109,3 @@ if __name__ == "__main__":
     scheduler.add_job(main, 'cron', hour=10, minute=0)
     scheduler.start()
     # main()
-    
