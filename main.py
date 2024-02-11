@@ -96,9 +96,9 @@ def main():
         combined_message = f"🔍 *Chelsea's Last Game*\n{previous_match}\n\n---\n\n📅 *Upcoming Fixture*\n{next_match}\n\n" \
                            f"📲 @JustCFC"
 
-        print(combined_message)
+        # print(combined_message)
 
-        # send_fixture_to_telegram(combined_message)
+        send_fixture_to_telegram(combined_message)
 
 
 if __name__ == "__main__":
