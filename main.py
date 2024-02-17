@@ -107,6 +107,5 @@ if __name__ == "__main__":
 
     # Schedule the job to run daily at 10 am Nigerian time
     scheduler.add_job(main, 'cron', hour=10, minute=0)
-    scheduler.add_job(main, 'interval', hours=12)
     scheduler.start()
     # main()
